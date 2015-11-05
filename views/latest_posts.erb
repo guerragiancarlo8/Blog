@@ -1,0 +1,12 @@
+<h1> My Blog </h1>
+
+<%@posts.each do |x|%>
+	
+	<%postNum = @posts.index(x)%>
+	<a href="/post_details/<%=postNum%>/2"> <h2> <%= x.title %> </h2></a>
+	<p> <%= x.author %> </p>
+	<p> <%= x.date %> </p>
+	<p> <%= x.category %> </p>
+<%end%>
+
+<a href="/new_post"><p>Create New Post</p></a>

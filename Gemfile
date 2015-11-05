@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'rspec'
+gem 'rack'
+gem 'rack-test'
+gem 'guard'
+gem 'guard-rspec'
