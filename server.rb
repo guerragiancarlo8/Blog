@@ -3,6 +3,7 @@ require './lib/blog.rb'
 require 'date'
 require 'sinatra'
 require 'rspec'
+include Marshal
 
 blog = Blog.new
 blog.add_post Post.new("Mi primer post",'11 Aug 2010',"El primer post!","miscelaneo","Giancarlo M. Guerra")
@@ -10,7 +11,8 @@ blog.add_post Post.new("Mi segunto post",'12 Aug 2010',"Y este es el segundo","r
 blog.add_post Post.new("Mi tercer post",'13 Aug 2010',"A por el tercero :)","política","Sancho Panza")
 
 get '/' do
-	@posts = blog.posts
+
+	@posts = (File.open('data.marshal','r'){|from_file| Marshal.load(from_file)}).posts
 	erb(:home)
 end
 
@@ -42,6 +44,6 @@ post '/add_post' do
 	@author = params['author']
 	#puts Date.new.strftime('%d %b %Y')
 	blog.add_post(Post.new(@title,Date.new.strftime('%d %b %Y'),@text,@category,@author))
-
+	File.open('data.marshal','w'){|to_file|Marshal.dump(blog, to_file)}
 	redirect('/')
 end
